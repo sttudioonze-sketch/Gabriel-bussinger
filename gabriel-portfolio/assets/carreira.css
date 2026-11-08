@@ -1,0 +1,11 @@
+/* Padrão único para todas as páginas de experiências. */
+.career-list{height:710px;gap:10px;grid-template-rows:repeat(var(--rows,6),minmax(0,1fr))}
+.career-row{height:auto;min-height:0}
+.club-marks{padding:7px;gap:14px;align-items:center;justify-content:center}
+.career-list .club-marks img,.career-list .club-marks img:only-child{height:66px;width:auto;max-width:78px;max-height:none;object-fit:contain;flex-shrink:0}
+.career-detail{padding:6px 18px}
+.career-list .career-row .club-name{font-family:Boldonse,sans-serif;font-weight:400;font-size:18px;line-height:1.65;padding-top:3px;margin-bottom:2px}
+.career-list .career-role{font-size:15px;font-weight:600;line-height:1.25;margin-bottom:5px}
+.career-list .career-place{font-size:13px;line-height:1.2}
+.career-list .season{font-size:13px;line-height:1.9}
+.career-list .season strong{font-family:Boldonse,sans-serif;font-size:24px;line-height:1.7;font-weight:400}

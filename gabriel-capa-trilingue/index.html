@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gabriel Bussinger</title>
+<style>
+body{margin:0;background:#0a132b;min-height:100svh;display:grid;place-items:center}
+main{position:relative;width:min(100%,1600px)}img{display:block;width:100%;height:auto}
+nav{position:absolute;left:4.58%;top:3.7%;width:9%;height:3.56%;display:flex;gap:3%}
+button{flex:1;min-width:0;padding:0;cursor:pointer;border:0;background:transparent;color:transparent}
+button:focus-visible{outline:2px solid #14ffe3;outline-offset:1px;border-radius:4px}
+@font-face{font-family:Inter;src:url(../gabriel-33-canais/Inter.ttf)}
+.explore-card{position:absolute;left:4%;bottom:5%;width:21%;box-sizing:border-box;padding:1.3% 1.4%;border:1px solid #d6f5ff24;border-radius:15px;background:linear-gradient(135deg,#7299b329,#0a132b9c);backdrop-filter:blur(22px);color:#f5f5f5;text-decoration:none;font-family:Inter,Arial,sans-serif;box-shadow:inset 0 1px 0 #ffffff0c,0 12px 24px -18px #000a;transition:background .2s}
+.explore-card:hover{background:#23445caa}.explore-card:focus-visible{outline:2px solid #14ffe3;outline-offset:4px}
+.explore-card small{display:block;color:#14ffe3;font-size:clamp(8px,1vw,13px);letter-spacing:.08em;margin-bottom:8px}
+.explore-card strong{display:block;font-size:clamp(11px,1.35vw,19px);font-weight:600;line-height:1.35}.explore-card span{display:block;font-size:clamp(8px,.92vw,13px);color:#cbd9e4;line-height:1.4;margin-top:7px}
+main{container-type:inline-size}.explore-card{border-radius:1.25cqw}.explore-card small{font-size:1cqw;margin-bottom:.65cqw}.explore-card strong{font-size:1.35cqw}.explore-card span{font-size:.92cqw;margin-top:.58cqw}
+</style>
+<main>
+<img id="cover" src="pt.png" width="1200" height="675" alt="Portfólio profissional de Gabriel Bussinger">
+<nav aria-label="Idiomas">
+<button type="button" data-lang="pt" aria-label="Português" aria-pressed="true">PT</button>
+<button type="button" data-lang="en" aria-label="English" aria-pressed="false">EN</button>
+<button type="button" data-lang="es" aria-label="Español" aria-pressed="false">ES</button>
+</nav>
+<a class="explore-card" href="../gabriel-portfolio/index.html#view=areas&lang=pt"><small></small><strong></strong><span></span></a></main>
+<script>
+const cover = document.querySelector('#cover');
+const nav = document.querySelector('nav');
+const options = {pt:['pt-BR','Portfólio profissional','Idiomas'],en:['en','Professional portfolio','Languages'],es:['es','Portafolio profesional','Idiomas']};
+function showLanguage() {
+  const requested = location.hash.slice(1);
+  const lang = Object.hasOwn(options, requested) ? requested : 'pt';
+  const [locale, label, languages] = options[lang];
+  document.documentElement.lang = locale;
+  const words={pt:['EXPLORE O PORTFÓLIO','Por onde quer começar? ↗','Escolha a área que deseja conhecer.'],en:['EXPLORE THE PORTFOLIO','Where would you like to start? ↗','Choose a section to explore.'],es:['EXPLORA EL PORTAFOLIO','¿Por dónde quieres empezar? ↗','Elige el área que deseas conocer.']}[lang];
+  const card=document.querySelector('.explore-card');card.querySelector('small').textContent=words[0];card.querySelector('strong').textContent=words[1];card.querySelector('span').textContent=words[2];card.href='../gabriel-portfolio/index.html#view=areas&lang='+lang;
+  cover.src = lang + '.png';
+  cover.alt = label + ' · Gabriel Bussinger';
+  document.title = cover.alt;
+  nav.setAttribute('aria-label', languages);
+  for (const button of nav.querySelectorAll('button')) {
+    button.setAttribute('aria-pressed', String(button.dataset.lang === lang));
+  }
+}
+nav.addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (button) location.hash = button.dataset.lang;
+});
+window.addEventListener('hashchange', showLanguage);
+showLanguage();
+</script>
+</html>
+<script>
+function notifyLanguage(){
+const lang=location.hash.slice(1);
+if(['pt','en','es'].includes(lang)&&parent!==window)parent.postMessage({type:'portfolio-language',language:lang},'*');
+}
+addEventListener('hashchange',notifyLanguage);notifyLanguage();
+</script><script>document.querySelector('.explore-card').addEventListener('click',e=>{if(parent!==window){e.preventDefault();parent.postMessage({type:'portfolio-menu'},'*')}});</script>
