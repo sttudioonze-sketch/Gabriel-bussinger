@@ -678,12 +678,16 @@ html.preview-static .topic-mark .check-stroke{animation:none;stroke-dashoffset:0
 .player-caption p{font-size:19px;line-height:1.4;color:#355971;margin:0}
 @media(prefers-reduced-motion:no-preference){.player{animation:player-in .9s ease both;animation-delay:calc(var(--i)*130ms)}@keyframes player-in{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}}
 .pag-logo{display:block;height:30px;width:auto}
+
+/* Sombra de cada jogador gerada a partir do recorte: contato só onde o pé ou a bola tocam o chão e uma projeção suave do corpo. Mesma caixa da foto, com 6% a mais embaixo. */
+.player-shadow{left:50%;transform:translateX(-50%);bottom:calc(82px - 640px*.06);height:calc(640px*1.06);width:auto;max-width:none;opacity:1;z-index:0;pointer-events:none}
+.player-photo{z-index:1}
 </style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
   </header>
   <h2 class="titulo" id="t2" data-t="visao-titulo">Dados pessoais</h2>
-<div class="players-grid"><article class="player" style="--i:0"><div class="player-glow"></div><img class="player-shadow" src="assets/sombra.png" alt="" aria-hidden="true"><img class="player-photo" src="assets/gabriel-magalhaes.png" alt="GABRIEL MAGALHÃES"><div class="player-caption"><h3>GABRIEL MAGALHÃES</h3><p>Arsenal Football Club</p></div></article><article class="player" style="--i:1"><div class="player-glow"></div><img class="player-shadow" src="assets/sombra.png" alt="" aria-hidden="true"><img class="player-photo" src="assets/raphinha.png" alt="RAPHINHA BELLOLI"><div class="player-caption"><h3>RAPHINHA BELLOLI</h3><p>Futbol Club Barcelona</p></div></article><article class="player" style="--i:2"><div class="player-glow"></div><img class="player-shadow" src="assets/sombra.png" alt="" aria-hidden="true"><img class="player-photo" src="assets/arthur-chaves.png" alt="ARTHUR CHAVES"><div class="player-caption"><h3>ARTHUR CHAVES</h3><p>TSG Hoffenheim</p></div></article></div>
+<div class="players-grid"><article class="player" style="--i:0"><div class="player-glow"></div><img class="player-shadow" src="assets/sombra-gabriel-magalhaes.png" alt="" aria-hidden="true"><img class="player-photo" src="assets/gabriel-magalhaes.png" alt="GABRIEL MAGALHÃES"><div class="player-caption"><h3>GABRIEL MAGALHÃES</h3><p>Arsenal Football Club</p></div></article><article class="player" style="--i:1"><div class="player-glow"></div><img class="player-shadow" src="assets/sombra-raphinha.png" alt="" aria-hidden="true"><img class="player-photo" src="assets/raphinha.png" alt="RAPHINHA BELLOLI"><div class="player-caption"><h3>RAPHINHA BELLOLI</h3><p>Futbol Club Barcelona</p></div></article><article class="player" style="--i:2"><div class="player-glow"></div><img class="player-shadow" src="assets/sombra-arthur-chaves.png" alt="" aria-hidden="true"><img class="player-photo" src="assets/arthur-chaves.png" alt="ARTHUR CHAVES"><div class="player-caption"><h3>ARTHUR CHAVES</h3><p>TSG Hoffenheim</p></div></article></div>
   <footer class="rodape">
     <div class="assina">
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
