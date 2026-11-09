@@ -603,7 +603,7 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
 .section-caption{top:287px}
 .visao .foto{width:375px;left:1490px;top:205px}
 .visao .foto{width:455px;left:1415px;top:110px}
-.institution img[src$="nsw.svg"]{mix-blend-mode:multiply}
+
 .visao .foto-fundo{left:880px;top:0;width:1450px;height:auto;transform:none;opacity:.68;filter:blur(3px) saturate(.55);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#0005 30%,#000 65%);mask-image:linear-gradient(90deg,transparent 0%,#0005 30%,#000 65%)}
 .visao .foto{z-index:2}
 .institution:nth-child(9){grid-column:2}.institution:nth-child(10){grid-column:3}.pag-logo{display:block;height:30px;width:auto}
@@ -630,7 +630,7 @@ function applyLanguage(){
  document.querySelector('.titulo').textContent=title;
  document.querySelectorAll('.pill span')[0].textContent={pt:'Portfólio',en:'Portfolio',es:'Portafolio'}[lang];
  document.querySelectorAll('.pill span')[1].textContent={pt:'Instituições',en:'Institutions',es:'Instituciones'}[lang];
- document.querySelector('.academic-list').innerHTML=academics[lang].map(row=>'<article class="institution"><img src="assets/'+(row[2]==='nsw'?'nsw.svg':row[2]===19?'ofc-instituicao.svg':'next8-'+row[2]+'.png')+'" alt="'+row[0]+'"><h3>'+row[0]+'</h3><p>'+row[1]+'</p></article>').join('');
+ document.querySelector('.academic-list').innerHTML=academics[lang].map(row=>'<article class="institution"><img src="assets/'+(row[2]==='nsw'?'nsw.png':row[2]===19?'ofc-instituicao.svg':'next8-'+row[2]+'.png')+'" alt="'+row[0]+'"><h3>'+row[0]+'</h3><p>'+row[1]+'</p></article>').join('');
  document.querySelector('.section-caption').textContent={pt:'Instrutor oficial das seguintes instituições',en:'Official instructor of the following institutions',es:'Instructor oficial de las siguientes instituciones'}[lang];
  document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+{pt:'GESTOR TÉCNICO E METODOLÓGICO',en:'TECHNICAL & METHODOLOGY DIRECTOR',es:'DIRECTOR TÉCNICO Y METODOLÓGICO'}[lang];
  
