@@ -614,6 +614,7 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
 .topic{min-height:75px;font-size:25px}
 .visao .foto{left:1325px;top:70px;width:600px;transform:none}
 .visao .foto-fundo{left:660px;top:-30px;width:1650px;opacity:.6;transform:none;filter:blur(7px) saturate(.5)}
+.pag-logo{display:block;height:30px;width:auto}
 </style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
@@ -626,9 +627,8 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
       <span class="assina-t">GABRIEL BUSSINGER | GESTOR TÉCNICO E METODOLÓGICO</span>
     </div>
-    <span class="pag">PORTFÓLIO PROFISSIONAL 2026</span>
+    <span class="pag"><img class="pag-logo" src="../gabriel-portfolio/assets/logo-portfolio-pro.svg" alt="Portfólio PRO"></span>
   </footer>
-  <div class="marca-lado"><img src="assets/portfolio-pro-azul.svg?v=2" alt="Portfólio PRO"></div>
 </section><script>function fit(){document.querySelector('.slide').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'} addEventListener('resize',fit);fit();</script></html><nav class="review-tools" aria-label="Idioma"><button data-language="pt" aria-pressed="true">PT</button><button data-language="en" aria-pressed="false">EN</button><button data-language="es" aria-pressed="false">ES</button></nav><script>
 const academics={"pt": ["Transição entre base e profissional", "Competências interpessoais e intrapessoais do executivo", "Liderança no futebol", "Gestão de pessoas no futebol", "Gestão técnica no futebol"], "en": ["Youth–Professional Transition", "Interpersonal and Intrapersonal Skills of the Executive", "Leadership in Football", "People Management in Football", "Technical Management in Football"], "es": ["Transición entre formación y primer equipo", "Competencias interpersonales e intrapersonales del ejecutivo", "Liderazgo en el fútbol", "Gestión de personas en el fútbol", "Gestión técnica en el fútbol"]};
 function applyLanguage(){
@@ -641,7 +641,7 @@ function applyLanguage(){
  document.querySelector('.academic-list').innerHTML=academics[lang].map((topic,i)=>'<div class="topic" style="--order:'+i+'"><span class="topic-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="check-stroke" pathLength="1" d="m9 10 4 4L23 3"/></svg></span><span>'+topic+'</span></div>').join('');
  document.querySelector('.topics-caption').textContent={pt:'EXECUTIVOS DE FUTEBOL',en:'FOOTBALL EXECUTIVES',es:'EJECUTIVOS DE FÚTBOL'}[lang];
  document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+{pt:'GESTOR TÉCNICO E METODOLÓGICO',en:'TECHNICAL & METHODOLOGY DIRECTOR',es:'DIRECTOR TÉCNICO Y METODOLÓGICO'}[lang];
- document.querySelector('.pag').innerHTML={pt:'PORTFÓLIO PROFISSIONAL',en:'PROFESSIONAL PORTFOLIO',es:'PORTAFOLIO PROFESIONAL'}[lang]+' <span class="footer-accent">2026</span>';
+ 
  document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===lang)));
  if(parent!==window)parent.postMessage({type:'portfolio-language',language:lang},'*');
 }

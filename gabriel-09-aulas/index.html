@@ -610,6 +610,7 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
 .topic-mark svg{width:23px;height:23px;fill:#f5f5f5;stroke:none;filter:drop-shadow(0 2px 1px #020a1d66)}
 .interno.visao .titulo{top:177px;font-size:35px;font-weight:650;letter-spacing:.005em;line-height:1.2;padding:0}
 .topics-caption{top:221px;font-size:43px;padding-top:.18em;padding-bottom:.25em;line-height:1.6}
+.pag-logo{display:block;height:30px;width:auto}
 </style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
@@ -622,9 +623,8 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
       <span class="assina-t">GABRIEL BUSSINGER | GESTOR TÉCNICO E METODOLÓGICO</span>
     </div>
-    <span class="pag">PORTFÓLIO PROFISSIONAL 2026</span>
+    <span class="pag"><img class="pag-logo" src="../gabriel-portfolio/assets/logo-portfolio-pro.svg" alt="Portfólio PRO"></span>
   </footer>
-  <div class="marca-lado"><img src="assets/portfolio-pro-azul.svg?v=2" alt="Portfólio PRO"></div>
 </section><script>function fit(){document.querySelector('.slide').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'} addEventListener('resize',fit);fit();</script></html><nav class="review-tools" aria-label="Idioma"><button data-language="pt" aria-pressed="true">PT</button><button data-language="en" aria-pressed="false">EN</button><button data-language="es" aria-pressed="false">ES</button></nav><script>
 const academics={"pt": ["Organização ofensiva", "Organização estrutural do treinamento", "Treinamento na infância e adolescência", "Estrutura de pré-temporada", "Treinamento de bolas paradas", "Tática individual", "Tomada de decisão no futebol", "Como melhorar o último terço de ataque"], "en": ["Offensive Organization", "Structural Organization of Training", "Training in Youth and Adolescence", "Pre-season Structure", "Set Piece Training", "Individual Tactics", "Decision Making in Football", "How to Improve the Final Third of Attack"], "es": ["Organización ofensiva", "Organización estructural del entrenamiento", "Entrenamiento en la infancia y adolescencia", "Estructura de la pretemporada", "Entrenamiento de jugadas a balón parado", "Táctica individual", "Toma de decisiones en el fútbol", "Cómo mejorar el último tercio de ataque"]};
 function applyLanguage(){
@@ -637,7 +637,7 @@ function applyLanguage(){
  document.querySelector('.academic-list').innerHTML=academics[lang].map((topic,i)=>'<div class="topic" style="--order:'+i+'"><span class="topic-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="check-stroke" pathLength="1" d="m9 10 4 4L23 3"/></svg></span><span>'+topic+'</span></div>').join('');
  document.querySelector('.topics-caption').textContent={pt:'TREINADORES DE FUTEBOL',en:'FOOTBALL COACHES',es:'ENTRENADORES DE FÚTBOL'}[lang];
  document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+{pt:'GESTOR TÉCNICO E METODOLÓGICO',en:'TECHNICAL & METHODOLOGY DIRECTOR',es:'DIRECTOR TÉCNICO Y METODOLÓGICO'}[lang];
- document.querySelector('.pag').innerHTML={pt:'PORTFÓLIO PROFISSIONAL',en:'PROFESSIONAL PORTFOLIO',es:'PORTAFOLIO PROFESIONAL'}[lang]+' <span class="footer-accent">2026</span>';
+ 
  document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===lang)));
  if(parent!==window)parent.postMessage({type:'portfolio-language',language:lang},'*');
 }

@@ -681,6 +681,7 @@ html.preview-static .topic-mark .check-stroke{animation:none;stroke-dashoffset:0
 .players-grid{grid-template-columns:repeat(4,1fr);gap:24px}.player-photo{height:600px;max-width:100%}.player-shadow{width:250px;height:55px}.player-caption h3{font-size:21px}.player-caption p{font-size:16px}
 
 .player:nth-child(2) .player-photo{max-width:none;height:600px}
+.pag-logo{display:block;height:30px;width:auto}
 </style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
@@ -692,14 +693,13 @@ html.preview-static .topic-mark .check-stroke{animation:none;stroke-dashoffset:0
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
       <span class="assina-t">GABRIEL BUSSINGER | GESTOR TÉCNICO E METODOLÓGICO</span>
     </div>
-    <span class="pag">PORTFÓLIO PROFISSIONAL 2026</span>
+    <span class="pag"><img class="pag-logo" src="../gabriel-portfolio/assets/logo-portfolio-pro.svg" alt="Portfólio PRO"></span>
   </footer>
-  <div class="marca-lado"><img src="assets/portfolio-pro-azul.svg?v=2" alt="Portfólio PRO"></div>
 </section><script>function fit(){document.querySelector('.slide').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'} addEventListener('resize',fit);fit();</script></html><nav class="review-tools" aria-label="Idioma"><button data-language="pt" aria-pressed="true">PT</button><button data-language="en" aria-pressed="false">EN</button><button data-language="es" aria-pressed="false">ES</button></nav><script>
 function applyLanguage(){const lang=['pt','en','es'].includes(location.hash.slice(1))?location.hash.slice(1):'pt';const k=['pt','en','es'].indexOf(lang);document.documentElement.lang=lang;
 document.title='Gabriel Bussinger | '+['Jogadores com quem trabalhei','Players worked with','Jugadores con los que trabajé'][k];
 document.querySelector('.titulo').textContent=['JOGADORES COM QUEM TRABALHEI','PLAYERS WORKED WITH','JUGADORES CON LOS QUE TRABAJÉ'][k];
 document.querySelector('.pill').innerHTML='<span>'+['Portfólio','Portfolio','Portafolio'][k]+'</span><span class="sec">'+['Jogadores','Players','Jugadores'][k]+'</span>';
-document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+['GESTOR TÉCNICO E METODOLÓGICO','TECHNICAL & METHODOLOGY DIRECTOR','DIRECTOR TÉCNICO Y METODOLÓGICO'][k];document.querySelector('.pag').innerHTML=['PORTFÓLIO PROFISSIONAL','PROFESSIONAL PORTFOLIO','PORTAFOLIO PROFESIONAL'][k]+' <span class="footer-accent">2026</span>';
+document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+['GESTOR TÉCNICO E METODOLÓGICO','TECHNICAL & METHODOLOGY DIRECTOR','DIRECTOR TÉCNICO Y METODOLÓGICO'][k];
 document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===lang)));if(parent!==window)parent.postMessage({type:'portfolio-language',language:lang},'*');}
 document.querySelector('.review-tools').addEventListener('click',e=>{const b=e.target.closest('button');if(b)location.hash=b.dataset.language});addEventListener('hashchange',applyLanguage);applyLanguage();</script>

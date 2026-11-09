@@ -625,7 +625,8 @@ dialog button{position:absolute;right:15px;top:12px;border:0;background:transpar
 .experience{top:275px}
 .experience>div{min-height:215px;padding-top:18px;padding-bottom:30px}
 .experience strong{display:inline-block;padding-top:.35em;padding-bottom:.3em;line-height:1.6;overflow:visible}
-.experience strong{padding-left:.08em;padding-right:.18em;margin-left:-.08em;letter-spacing:-.025em;flex-shrink:0}html.embedded .review-tools,html.embedded .slide-nav{display:none}</style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
+.experience strong{padding-left:.08em;padding-right:.18em;margin-left:-.08em;letter-spacing:-.025em;flex-shrink:0}html.embedded .review-tools,html.embedded .slide-nav{display:none}.pag-logo{display:block;height:30px;width:auto}
+</style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <a class="slide-nav" href="objetivos-teste-claro.html">Objetivos profissionais →</a><header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
   </header>
@@ -638,9 +639,8 @@ dialog button{position:absolute;right:15px;top:12px;border:0;background:transpar
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
       <span class="assina-t">GABRIEL BUSSINGER | GESTOR TÉCNICO E METODOLÓGICO</span>
     </div>
-    <span class="pag">PORTFÓLIO PROFISSIONAL 2026</span>
+    <span class="pag"><img class="pag-logo" src="../gabriel-portfolio/assets/logo-portfolio-pro.svg" alt="Portfólio PRO"></span>
   </footer>
-  <div class="marca-lado"><img src="assets/portfolio-pro-azul.svg?v=2" alt="Portfólio PRO"></div>
 </section><script>function fit(){document.querySelector('.slide').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'} addEventListener('resize',fit);fit();</script></html><nav class="review-tools" aria-label="Idioma"><button data-language="pt" aria-pressed="true">PT</button><button data-language="en" aria-pressed="false">EN</button><button data-language="es" aria-pressed="false">ES</button></nav><script>
 
 const copy={
@@ -671,7 +671,7 @@ document.querySelector('.titulo').textContent=t.title;
 document.querySelectorAll('.pill span').forEach((el,i)=>el.textContent=t.pill[i]);
 document.querySelector('.perfil-conteudo').innerHTML=t.paragraphs.map(text=>'<p>'+text+'</p>').join('');
 document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+t.role;
-document.querySelector('.pag').innerHTML=t.footer+' <span class="footer-accent">2026</span>';
+
 
 document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===lang)));
 }

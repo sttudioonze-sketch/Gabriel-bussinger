@@ -601,6 +601,7 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
 .interno.visao .pill .sec{color:#14ffe3;background:#0a132bbf}
 .interno.visao .marca-lado img{filter:brightness(0) invert(1)}
 .interno.visao .titulo{left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center;width:max-content;max-width:1728px;text-align:center}
+.pag-logo{display:block;height:30px;width:auto}
 </style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <img class="chapter-photo" src="assets/instrutor-original.png" alt="Gabriel Bussinger ministrando uma palestra"><div class="chapter-veil"></div><header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
@@ -613,9 +614,8 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
       <span class="assina-t">GABRIEL BUSSINGER | GESTOR TÉCNICO E METODOLÓGICO</span>
     </div>
-    <span class="pag">PORTFÓLIO PROFISSIONAL 2026</span>
+    <span class="pag"><img class="pag-logo" src="../gabriel-portfolio/assets/logo-portfolio-pro.svg" alt="Portfólio PRO"></span>
   </footer>
-  <div class="marca-lado"><img src="assets/portfolio-pro-azul.svg?v=2" alt="Portfólio PRO"></div>
 </section><script>function fit(){document.querySelector('.slide').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'} addEventListener('resize',fit);fit();</script></html><nav class="review-tools" aria-label="Idioma"><button data-language="pt" aria-pressed="true">PT</button><button data-language="en" aria-pressed="false">EN</button><button data-language="es" aria-pressed="false">ES</button></nav><script>
 const academics={
 pt:[['CBF','Licença PRO','Treinador de futebol','Confederação Brasileira de Futebol'],['CONMEBOL','Licença PRO','Treinador de futebol','Confederação Sul-Americana de Futebol']],
@@ -631,7 +631,7 @@ function applyLanguage(){
  document.querySelectorAll('.pill span')[1].textContent={pt:'Instrutor',en:'Instructor',es:'Instructor'}[lang];
  document.querySelector('.academic-list').innerHTML=academics[lang].map((row,i)=>'<article class="credential"><img src="assets/licenses-'+[12,10][i]+'.png" alt="'+row[0]+'"><div><p class="entity">'+row[3]+'</p><h3>'+row[1]+'</h3><p class="coach">'+row[2]+'</p></div></article>').join('');
  document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+{pt:'GESTOR TÉCNICO E METODOLÓGICO',en:'TECHNICAL & METHODOLOGY DIRECTOR',es:'DIRECTOR TÉCNICO Y METODOLÓGICO'}[lang];
- document.querySelector('.pag').innerHTML={pt:'PORTFÓLIO PROFISSIONAL',en:'PROFESSIONAL PORTFOLIO',es:'PORTAFOLIO PROFESIONAL'}[lang]+' <span class="footer-accent">2026</span>';
+ 
  document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===lang)));
  if(parent!==window)parent.postMessage({type:'portfolio-language',language:lang},'*');
 }

@@ -645,6 +645,7 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
 .career-detail{border-bottom:1px solid #14ffe32b;padding-left:0;grid-template-columns:104px 1fr;gap:24px}
 .career-field{right:0;top:0;width:650px;height:1020px;transform:none;opacity:.65;object-fit:cover;object-position:65% center;clip-path:polygon(0 0,100% 0,100% 100%,28% 100%)}
 .career-photo{right:40px;bottom:64px;height:1010px;width:auto}
+.pag-logo{display:block;height:30px;width:auto}
 </style><link rel="stylesheet" href="../gabriel-portfolio/assets/carreira.css"><style>
 .career-list{top:340px;height:656px;width:1190px;gap:10px}
 .career-row{grid-template-columns:185px 1fr;gap:20px}
@@ -658,9 +659,8 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
       <span class="assina-t">GABRIEL BUSSINGER | GESTOR TÉCNICO E METODOLÓGICO</span>
     </div>
-    <span class="pag">PORTFÓLIO PROFISSIONAL 2026</span>
+    <span class="pag"><img class="pag-logo" src="../gabriel-portfolio/assets/logo-portfolio-pro.svg" alt="Portfólio PRO"></span>
   </footer>
-  <div class="marca-lado"><img src="assets/portfolio-pro-azul.svg?v=2" alt="Portfólio PRO"></div>
 </section><script>function fit(){document.querySelector('.slide').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'} addEventListener('resize',fit);fit();</script></html><nav class="review-tools" aria-label="Idioma"><button data-language="pt" aria-pressed="true">PT</button><button data-language="en" aria-pressed="false">EN</button><button data-language="es" aria-pressed="false">ES</button></nav><script>
 const rows=[["2022", ["sporting"], "<em>SPORTING</em> CLUBE DE PORTUGAL", ["DURAÇÃO: 1 DIA", "DURATION: 1 DAY", "DURACIÓN: 1 DÍA"], ["LISBOA | PORTUGAL", "LISBON | PORTUGAL", "LISBOA | PORTUGAL"]], ["2022", ["benfica"], "SPORT LISBOA E <em>BENFICA</em>", ["DURAÇÃO: 1 DIA", "DURATION: 1 DAY", "DURACIÓN: 1 DÍA"], ["LISBOA | PORTUGAL", "LISBON | PORTUGAL", "LISBOA | PORTUGAL"]], ["2022", ["barcelona"], "FUTBOL CLUB <em>BARCELONA</em>", ["DURAÇÃO: 1 DIA", "DURATION: 1 DAY", "DURACIÓN: 1 DÍA"], ["BARCELONA | ESPANHA", "BARCELONA | SPAIN", "BARCELONA | ESPAÑA"]], ["2022", ["anderlecht"], "ROYAL SPORTING CLUB <em>ANDERLECHT</em>", ["DURAÇÃO: 1 DIA", "DURATION: 1 DAY", "DURACIÓN: 1 DÍA"], ["BRUXELAS | BÉLGICA", "BRUSSELS | BELGIUM", "BRUSELAS | BÉLGICA"]], ["2022", ["brugge"], "<em>BRUGGE</em> K.V.", ["DURAÇÃO: 1 DIA", "DURATION: 1 DAY", "DURACIÓN: 1 DÍA"], ["BRUGES | BÉLGICA", "BRUGES | BELGIUM", "BRUJAS | BÉLGICA"]], ["2022", ["city"], "<em>MANCHESTER CITY</em> FOOTBALL CLUB", ["DURAÇÃO: 1 DIA", "DURATION: 1 DAY", "DURACIÓN: 1 DÍA"], ["MANCHESTER | INGLATERRA", "MANCHESTER | ENGLAND", "MÁNCHESTER | INGLATERRA"]]];
 function applyLanguage(){const lang=['pt','en','es'].includes(location.hash.slice(1))?location.hash.slice(1):'pt';const k=['pt','en','es'].indexOf(lang);
@@ -669,6 +669,6 @@ document.querySelector('.titulo').textContent=['EXPERIÊNCIAS','EXPERIENCES','EX
 document.querySelector('.visits-heading').textContent=['TEMPORÁRIAS','TEMPORARY','TEMPORALES'][k];document.querySelector('.pill').innerHTML='<span>'+['Portfólio','Portfolio','Portafolio'][k]+'</span><span class="sec">'+['Vivências','Visits','Vivencias'][k]+'</span>';
 document.querySelector('.career-list').style.setProperty('--rows',rows.length);document.querySelector('.career-list').dataset.count=rows.length;document.querySelector('.career-list').innerHTML=rows.map((r,i)=>`<article class="career-row" data-compact="${r[2].replace(/<[^>]*>/g,'').length>36}" style="--i:${i}"><div class="club-marks">${r[1].map(n=>`<img src="assets/${n}.png" alt="${n}">`).join('')}</div><div class="career-detail"><div class="season">${['Temporada','Season','Temporada'][k]}<strong>${r[0]}</strong></div><div><h3 class="club-name">${r[2]}</h3><p class="career-role">${r[3][k]}</p><p class="career-place">${r[4][k]}</p></div></div></article>`).join('');
 document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+['GESTOR TÉCNICO E METODOLÓGICO','TECHNICAL & METHODOLOGY DIRECTOR','DIRECTOR TÉCNICO Y METODOLÓGICO'][k];
-document.querySelector('.pag').innerHTML=['PORTFÓLIO PROFISSIONAL','PROFESSIONAL PORTFOLIO','PORTAFOLIO PROFESIONAL'][k]+' <span class="footer-accent">2026</span>';
+
 document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===lang)));if(parent!==window)parent.postMessage({type:'portfolio-language',language:lang},'*');}
 document.querySelector('.review-tools').addEventListener('click',e=>{const b=e.target.closest('button');if(b)location.hash=b.dataset.language});addEventListener('hashchange',applyLanguage);applyLanguage();</script>

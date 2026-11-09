@@ -572,7 +572,8 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
 @keyframes journey-info{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 @keyframes journey-node{from{opacity:.15;box-shadow:0 0 0 1px #457b92}50%{box-shadow:0 0 0 7px #14ffe330}to{opacity:1;box-shadow:0 0 0 1px #457b92}}
 @media(prefers-reduced-motion:reduce){.academic-list::before,.qualification .period,.qualification img,.qualification .degree,.qualification::before{animation:none}}
-.qualification img{position:relative;left:9px}html.embedded .review-tools{display:none}</style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
+.qualification img{position:relative;left:9px}html.embedded .review-tools{display:none}.pag-logo{display:block;height:30px;width:auto}
+</style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
   </header>
@@ -584,9 +585,8 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
       <span class="assina-t">GABRIEL BUSSINGER | GESTOR TÉCNICO E METODOLÓGICO</span>
     </div>
-    <span class="pag">PORTFÓLIO PROFISSIONAL 2026</span>
+    <span class="pag"><img class="pag-logo" src="../gabriel-portfolio/assets/logo-portfolio-pro.svg" alt="Portfólio PRO"></span>
   </footer>
-  <div class="marca-lado"><img src="assets/portfolio-pro-azul.svg?v=2" alt="Portfólio PRO"></div>
 </section><script>function fit(){document.querySelector('.slide').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'} addEventListener('resize',fit);fit();</script></html><nav class="review-tools" aria-label="Idioma"><button data-language="pt" aria-pressed="true">PT</button><button data-language="en" aria-pressed="false">EN</button><button data-language="es" aria-pressed="false">ES</button></nav><script>
 const academics={"pt": [["2002 — 2007", "Graduação", "Educação Física · Licenciatura plena", "Universidade Federal de Santa Catarina — UFSC"], ["2012 — 2013", "Pós-graduação", "Ciências do Futebol e Futsal · Metodologia do Treinamento", "Universidade Estácio de Sá"], ["2014", "Pós-graduação", "Gestão Técnica de Futebol", "Universidade do Futebol & ABEX"], ["2015 — 2016", "Pós-graduação", "Gestão de Pessoas", "Universidade Anhanguera"], ["2017 — 2019", "Mestrado", "Educação Física, Gestão Técnica e Gestão de Pessoas", "Universidade Federal de Santa Catarina — UFSC"]], "en": [["2002 — 2007", "Undergraduate degree", "Physical Education · Full licensure", "Federal University of Santa Catarina — UFSC"], ["2012 — 2013", "Postgraduate degree", "Football and Futsal Sciences · Training Methodology", "Estácio de Sá University"], ["2014", "Postgraduate degree", "Football Technical Management", "Universidade do Futebol & ABEX"], ["2015 — 2016", "Postgraduate degree", "People Management", "Anhanguera University"], ["2017 — 2019", "Master’s degree", "Physical Education, Technical Management and People Management", "Federal University of Santa Catarina — UFSC"]], "es": [["2002 — 2007", "Grado", "Educación Física · Licenciatura plena", "Universidad Federal de Santa Catarina — UFSC"], ["2012 — 2013", "Posgrado", "Ciencias del Fútbol y Fútbol Sala · Metodología del Entrenamiento", "Universidad Estácio de Sá"], ["2014", "Posgrado", "Gestión Técnica de Fútbol", "Universidade do Futebol & ABEX"], ["2015 — 2016", "Posgrado", "Gestión de Personas", "Universidad Anhanguera"], ["2017 — 2019", "Máster", "Educación Física, Gestión Técnica y Gestión de Personas", "Universidad Federal de Santa Catarina — UFSC"]]};
 function applyLanguage(){
@@ -598,7 +598,7 @@ function applyLanguage(){
  document.querySelectorAll('.pill span')[1].textContent={pt:'Formação',en:'Education',es:'Formación'}[lang];
  document.querySelector('.academic-list').innerHTML=academics[lang].map((row,i)=>({row,logo:[8,9,10,11,8][i]})).reverse().map(({row,logo},i)=>'<article class="qualification" style="--step:'+(4-i)+'"><div class="period">'+row[0]+'</div><div class="degree"><small>'+row[1]+'</small><h3>'+row[2]+'</h3><p>'+row[3]+'</p></div><img src="assets/academic-'+logo+'.png" alt="'+row[3]+'"></article>').join('');
  document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+{pt:'GESTOR TÉCNICO E METODOLÓGICO',en:'TECHNICAL & METHODOLOGY DIRECTOR',es:'DIRECTOR TÉCNICO Y METODOLÓGICO'}[lang];
- document.querySelector('.pag').innerHTML={pt:'PORTFÓLIO PROFISSIONAL',en:'PROFESSIONAL PORTFOLIO',es:'PORTAFOLIO PROFESIONAL'}[lang]+' <span class="footer-accent">2026</span>';
+ 
  document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===lang)));
  if(parent!==window)parent.postMessage({type:'portfolio-language',language:lang},'*');
 }

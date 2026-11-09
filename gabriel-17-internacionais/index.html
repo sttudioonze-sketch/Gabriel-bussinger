@@ -665,6 +665,7 @@ html.preview-static .topic-mark .check-stroke{animation:none;stroke-dashoffset:0
 .shine-play .award-cup .trophy-shine{animation:trophy-shimmer 1150ms cubic-bezier(.25,.1,.25,1) both;animation-delay:calc(350ms + var(--i)*100ms);animation-iteration-count:1}
 @keyframes trophy-shimmer{0%{opacity:0;transform:translateX(-55px)}15%{opacity:.75}75%{opacity:.75}100%{opacity:0;transform:translateX(55px)}}
 @media(prefers-reduced-motion:reduce){.shine-play .award-cup .trophy-shine{animation:none}}
+.pag-logo{display:block;height:30px;width:auto}
 </style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
@@ -676,9 +677,8 @@ html.preview-static .topic-mark .check-stroke{animation:none;stroke-dashoffset:0
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
       <span class="assina-t">GABRIEL BUSSINGER | GESTOR TÉCNICO E METODOLÓGICO</span>
     </div>
-    <span class="pag">PORTFÓLIO PROFISSIONAL 2026</span>
+    <span class="pag"><img class="pag-logo" src="../gabriel-portfolio/assets/logo-portfolio-pro.svg" alt="Portfólio PRO"></span>
   </footer>
-  <div class="marca-lado"><img src="assets/portfolio-pro-azul.svg?v=2" alt="Portfólio PRO"></div>
 </section><script>function fit(){document.querySelector('.slide').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'} addEventListener('resize',fit);fit();</script></html><nav class="review-tools" aria-label="Idioma"><button data-language="pt" aria-pressed="true">PT</button><button data-language="en" aria-pressed="false">EN</button><button data-language="es" aria-pressed="false">ES</button></nav><script>
 const awards=[
 ['2020',['CAMPEÃO | IBERCUP (PLAYOFFS PRATA)','CHAMPION | IBERCUP (SILVER PLAYOFFS)','CAMPEÓN | IBERCUP (PLAYOFFS PLATA)'],['PORTO ALEGRE | BRASIL','PORTO ALEGRE | BRAZIL','PORTO ALEGRE | BRASIL']],
@@ -693,7 +693,7 @@ document.querySelector('.titulo').textContent=['TÍTULOS E CONQUISTAS','TITLES A
 document.querySelector('.awards-subtitle').textContent=['INTERNACIONAIS','INTERNATIONAL','INTERNACIONALES'][k];
 document.querySelector('.pill').innerHTML='<span>'+['Portfólio','Portfolio','Portafolio'][k]+'</span><span class="sec">'+['Conquistas','Achievements','Logros'][k]+'</span>';
 document.querySelector('.awards-list').innerHTML=awards.map((r,i)=>`<article class="award-row" style="--i:${i}"><div class="award-date">${['Temporada','Season','Temporada'][k]}<strong>${r[0]}</strong></div><svg class="award-cup" viewBox="0 0 48 58" fill="none" aria-hidden="true"><defs><linearGradient id="trophy-light-${i}"><stop stop-color="white" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient><clipPath id="trophy-mask-${i}"><path d="M12 4h24v15c0 11-5 17-12 17S12 30 12 19V4Z"/><path d="M12 8H4v7c0 9 5 14 12 14M36 8h8v7c0 9-5 14-12 14" fill="none" stroke="white" stroke-width="3"/><path d="M24 35v13M15 49h18v5H15z" fill="none" stroke="white" stroke-width="4"/></clipPath></defs><path d="M12 4h24v15c0 11-5 17-12 17S12 30 12 19V4Z" fill="currentColor"/><path d="M12 8H4v7c0 9 5 14 12 14M36 8h8v7c0 9-5 14-12 14" stroke="currentColor" stroke-width="3"/><path d="M24 35v13M15 49h18v5H15z" stroke="currentColor" stroke-width="4"/><g clip-path="url(#trophy-mask-${i})"><path class="trophy-shine" d="M-20-10H-4L48 68H32Z" fill="url(#trophy-light-${i})"/></g></svg><div><h4 class="award-title">${r[1][k]}</h4><p class="award-place">${r[2][k]}</p></div></article>`).join('');
-document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+['GESTOR TÉCNICO E METODOLÓGICO','TECHNICAL & METHODOLOGY DIRECTOR','DIRECTOR TÉCNICO Y METODOLÓGICO'][k];document.querySelector('.pag').innerHTML=['PORTFÓLIO PROFISSIONAL','PROFESSIONAL PORTFOLIO','PORTAFOLIO PROFESIONAL'][k]+' <span class="footer-accent">2026</span>';
+document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+['GESTOR TÉCNICO E METODOLÓGICO','TECHNICAL & METHODOLOGY DIRECTOR','DIRECTOR TÉCNICO Y METODOLÓGICO'][k];
 restartTrophyShine();document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===lang)));if(parent!==window)parent.postMessage({type:'portfolio-language',language:lang},'*');}
 document.querySelector('.review-tools').addEventListener('click',e=>{const b=e.target.closest('button');if(b)location.hash=b.dataset.language});addEventListener('hashchange',applyLanguage);applyLanguage();</script><script>
 function restartTrophyShine(){const slide=document.querySelector('.slide');slide.classList.remove('shine-play');requestAnimationFrame(()=>requestAnimationFrame(()=>slide.classList.add('shine-play')))}

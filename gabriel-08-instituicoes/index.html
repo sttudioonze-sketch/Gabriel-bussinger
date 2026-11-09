@@ -606,7 +606,8 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
 .institution img[src$="nsw.svg"]{mix-blend-mode:multiply}
 .visao .foto-fundo{left:880px;top:0;width:1450px;height:auto;transform:none;opacity:.68;filter:blur(3px) saturate(.55);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#0005 30%,#000 65%);mask-image:linear-gradient(90deg,transparent 0%,#0005 30%,#000 65%)}
 .visao .foto{z-index:2}
-.institution:nth-child(9){grid-column:2}.institution:nth-child(10){grid-column:3}</style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
+.institution:nth-child(9){grid-column:2}.institution:nth-child(10){grid-column:3}.pag-logo{display:block;height:30px;width:auto}
+</style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
   </header>
@@ -618,9 +619,8 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
       <span class="selos"><img src="assets/cbf-vetor.svg" alt="CBF Academy"><img src="assets/conmebol-vetor.svg" alt="CONMEBOL"><img src="assets/ofc-vetor.svg" alt="OFC"></span>
       <span class="assina-t">GABRIEL BUSSINGER | GESTOR TÉCNICO E METODOLÓGICO</span>
     </div>
-    <span class="pag">PORTFÓLIO PROFISSIONAL 2026</span>
+    <span class="pag"><img class="pag-logo" src="../gabriel-portfolio/assets/logo-portfolio-pro.svg" alt="Portfólio PRO"></span>
   </footer>
-  <div class="marca-lado"><img src="assets/portfolio-pro-azul.svg?v=2" alt="Portfólio PRO"></div>
 </section><script>function fit(){document.querySelector('.slide').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'} addEventListener('resize',fit);fit();</script></html><nav class="review-tools" aria-label="Idioma"><button data-language="pt" aria-pressed="true">PT</button><button data-language="en" aria-pressed="false">EN</button><button data-language="es" aria-pressed="false">ES</button></nav><script>
 const academics={"pt": [["CONMEBOL", "Coordenação técnica e metodológica", 7], ["CBF Academy", "Licenças de treinador · Curso de Diretor Executivo · Análise de Desempenho", 8], ["Oceania Football Confederation", "Conferência de treinadores", 19], ["Football NSW", "Conferência de treinadores", "nsw"], ["Federação Paulista de Futebol", "Curso Master FPF", 9], ["Federação Gaúcha de Futebol", "Diversos cursos", 10], ["Federação Catarinense de Futebol", "Licenças de treinador", 11], ["Universidade do Futebol", "Consultoria · Gestão do Futebol", 12], ["Futebol Interativo", "Tática para Treinadores · Gestão Técnica", 13], ["Futebol Interativo", "Curso de Diretores Executivos", 14]], "en": [["CONMEBOL", "Technical methodological coordination", 7], ["CBF Academy", "Coaching licenses · Executive Director Course · Performance Analysis Course", 8], ["Oceania Football Confederation", "Coaching Conference", 19], ["Football NSW", "Coaching Conference", "nsw"], ["Federação Paulista de Futebol", "Master Course FPF", 9], ["Federação Gaúcha de Futebol", "Various Courses", 10], ["Federação Catarinense de Futebol", "Coaching licenses", 11], ["Universidade do Futebol", "Consultancy · Football Management", 12], ["Futebol Interativo", "Tactics for Coaches · Technical Management", 13], ["Futebol Interativo", "Executive Directors Course", 14]], "es": [["CONMEBOL", "Coordinación técnica y metodológica", 7], ["CBF Academy", "Licencias de entrenador · Curso de Director Ejecutivo · Análisis del Rendimiento", 8], ["Oceania Football Confederation", "Conferencia de entrenadores", 19], ["Football NSW", "Conferencia de entrenadores", "nsw"], ["Federação Paulista de Futebol", "Curso Master FPF", 9], ["Federação Gaúcha de Futebol", "Diversos cursos", 10], ["Federação Catarinense de Futebol", "Licencias de entrenador", 11], ["Universidade do Futebol", "Consultoría · Gestión del Fútbol", 12], ["Futebol Interativo", "Táctica para Entrenadores · Gestión Técnica", 13], ["Futebol Interativo", "Curso de Directores Ejecutivos", 14]]};
 function applyLanguage(){
@@ -633,7 +633,7 @@ function applyLanguage(){
  document.querySelector('.academic-list').innerHTML=academics[lang].map(row=>'<article class="institution"><img src="assets/'+(row[2]==='nsw'?'nsw.svg':row[2]===19?'ofc-instituicao.svg':'next8-'+row[2]+'.png')+'" alt="'+row[0]+'"><h3>'+row[0]+'</h3><p>'+row[1]+'</p></article>').join('');
  document.querySelector('.section-caption').textContent={pt:'Instrutor oficial das seguintes instituições',en:'Official instructor of the following institutions',es:'Instructor oficial de las siguientes instituciones'}[lang];
  document.querySelector('.assina-t').innerHTML='<span class="footer-accent">GABRIEL BUSSINGER</span> | '+{pt:'GESTOR TÉCNICO E METODOLÓGICO',en:'TECHNICAL & METHODOLOGY DIRECTOR',es:'DIRECTOR TÉCNICO Y METODOLÓGICO'}[lang];
- document.querySelector('.pag').innerHTML={pt:'PORTFÓLIO PROFISSIONAL',en:'PROFESSIONAL PORTFOLIO',es:'PORTAFOLIO PROFESIONAL'}[lang]+' <span class="footer-accent">2026</span>';
+ 
  document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===lang)));
  if(parent!==window)parent.postMessage({type:'portfolio-language',language:lang},'*');
 }
