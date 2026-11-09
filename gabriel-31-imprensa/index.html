@@ -621,6 +621,9 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
 
 .interno.visao .titulo{font-size:82px}.chapter-photo{object-position:center 48%}
 .pag-logo{display:block;height:30px;width:auto}
+
+/* Título central sem transform e com entrada só em opacidade: evita salto/desfoque do texto em degradê no Safari. */
+.interno.visao .titulo{inset:0;margin:auto;transform:none;width:max-content;height:max-content}@media(prefers-reduced-motion:no-preference){.interno.visao .titulo{animation:chapter-fade .9s ease both}}@keyframes chapter-fade{from{opacity:0}to{opacity:1}}
 </style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <img class="chapter-photo" src="assets/imprensa-original.jpg" alt="Gabriel Bussinger durante uma palestra"><div class="chapter-veil"></div><header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>

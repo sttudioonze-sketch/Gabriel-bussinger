@@ -602,6 +602,9 @@ html.embedded .review-tools{display:none}.visao .titulo{font-size:57px;width:145
 .interno.visao .marca-lado img{filter:brightness(0) invert(1)}
 .interno.visao .titulo{left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center;width:max-content;max-width:1728px;text-align:center}
 .pag-logo{display:block;height:30px;width:auto}
+
+/* Título central sem transform e com entrada só em opacidade: evita salto/desfoque do texto em degradê no Safari. */
+.interno.visao .titulo{inset:0;margin:auto;transform:none;width:max-content;height:max-content}
 </style><section class="slide interno visao ativo" data-slide="2" aria-labelledby="t2">
   <img class="chapter-photo" src="assets/instrutor-original.png" alt="Gabriel Bussinger ministrando uma palestra"><div class="chapter-veil"></div><header class="etiqueta">
     <p class="pill"><span data-t="palavra">Portfólio</span><span class="sec" data-t="sec-visao">Perfil</span></p>
