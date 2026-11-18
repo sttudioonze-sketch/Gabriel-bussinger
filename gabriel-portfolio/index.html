@@ -25,7 +25,6 @@
 #stage iframe{position:absolute;inset:0;width:100%;height:100%;display:block;border:0}
 #stage iframe[inert]{pointer-events:none}
 #stage .loading-slide{opacity:0}
-#stage .turn-sheet{z-index:1;transform-origin:left center;backface-visibility:hidden}
 nav{position:fixed;bottom:7px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:4px 8px;border:1px solid #d7edff25;background:#0a132be8;backdrop-filter:blur(18px);border-radius:25px}
 button,select{border:0;border-radius:20px;background:transparent;color:#f5f5f5;padding:5px 9px;font:inherit;cursor:pointer}
 option{background:#0a132b}button:hover{background:#ffffff14}button:focus-visible,select:focus-visible{outline:2px solid #14ffe3}button:disabled{opacity:.3;cursor:default}
@@ -50,7 +49,7 @@ const slides=["../gabriel-capa-trilingue/index.html", "../gabriel-02-dados-pesso
 const stage=document.querySelector('#stage'), picker=document.querySelector('#index'), language=document.querySelector('#language');
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let frame=null, pendingFrame=null, current=0;
-let turnHash=null, finishTransition=null;
+let slideHash=null, finishTransition=null;
 
 function animateSlide(previous,incoming,direction){
  if(reducedMotion.matches){
@@ -58,33 +57,25 @@ function animateSlide(previous,incoming,direction){
   return;
  }
 
- let sheet=incoming;
- let animation;
+ const frames=[{opacity:0},{opacity:1}];
  if(direction){
-  sheet=direction>0 ? previous : incoming;
-  sheet.classList.add('turn-sheet');
-  animation=sheet.animate([
-   {transform:'perspective(1600px) rotateY(0deg)',filter:'brightness(1)'},
-   {transform:'perspective(1600px) rotateY(-34deg)',filter:'brightness(.89)',offset:.37},
-   {transform:'perspective(1600px) rotateY(-72deg)',filter:'brightness(.70)',offset:.76},
-   {transform:'perspective(1600px) rotateY(-90deg)',filter:'brightness(.59)'}
-  ],{duration:680,easing:'cubic-bezier(.34,.12,.25,1)',direction:direction>0?'normal':'reverse',fill:'both'});
- }else{
-  animation=incoming.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out',fill:'both'});
+  const distance=Math.min(12,stage.clientWidth*.018);
+  frames[0].transform='translateX('+(direction*distance)+'px)';
+  frames[1].transform='translateX(0px)';
  }
+ const animation=incoming.animate(frames,{duration:220,easing:'ease-out',fill:'both'});
 
  function finish(){
   if(finishTransition!==finish)return;
   finishTransition=null;
   animation.cancel();
-  sheet.classList.remove('turn-sheet');
   previous?.remove();
  }
  finishTransition=finish;
  animation.finished.then(finish,finish);
 }
 
-function showSlide(path,title,lang,index=null,shouldTurn=false){
+function showSlide(path,title,lang,index=null,shouldSlide=false){
  const url=new URL(path+'?embedded=1#'+lang,location.href).href;
  if(pendingFrame?.src===url)return;
  pendingFrame?.remove();
@@ -114,7 +105,7 @@ function showSlide(path,title,lang,index=null,shouldTurn=false){
   const previous=frame;
   const restoreFocus=previous && document.activeElement===previous;
   const distance=index-Number(previous?.dataset.slide);
-  const direction=shouldTurn && Math.abs(distance)===1 && new URL(previous.src).hash==='#'+lang ? distance : 0;
+  const direction=shouldSlide && Math.abs(distance)===1 && new URL(previous.src).hash==='#'+lang ? distance : 0;
   animateSlide(previous,incoming,direction);
   frame=incoming;
   pendingFrame=null;
@@ -133,26 +124,26 @@ function showSlide(path,title,lang,index=null,shouldTurn=false){
 }
 
 function render(){
- const shouldTurn=turnHash===location.hash;
- turnHash=null;
+ const shouldSlide=slideHash===location.hash;
+ slideHash=null;
  const params=new URLSearchParams(location.hash.slice(1));
  current=Math.max(0,Math.min(slides.length-1,Number(params.get('slide')||1)-1));
  const lang=['pt','en','es'].includes(params.get('lang'))?params.get('lang'):'pt';
  picker.value=current;language.value=lang;document.querySelector('#areas').textContent={pt:'Áreas',en:'Sections',es:'Áreas'}[lang];
  if(params.get('view')==='areas'){showSlide('../gabriel-areas/index.html','Áreas do portfólio',lang);document.querySelector('#side-prev').disabled=false;document.querySelector('#side-next').disabled=false;document.querySelector('#count').textContent='';document.querySelector('#prev').disabled=false;document.querySelector('#next').disabled=false;return;}
- showSlide(slides[current],picker.selectedOptions[0].textContent,lang,current,shouldTurn);
+ showSlide(slides[current],picker.selectedOptions[0].textContent,lang,current,shouldSlide);
  document.querySelector('#count').textContent=(current+1)+' / '+slides.length;
  document.querySelector('#prev').disabled=current===0;document.querySelector('#next').disabled=current===slides.length-1;document.querySelector('#side-prev').disabled=current===0;document.querySelector('#side-next').disabled=current===slides.length-1;
 }
-function go(i,turn=false){
+function go(i,slide=false){
  const hash='#slide='+(i+1)+'&lang='+language.value;
  if(location.hash===hash)return;
- turnHash=turn ? hash : null;
+ slideHash=slide ? hash : null;
  location.hash=hash;
 }
 picker.addEventListener('change',()=>go(Number(picker.value)));
 language.addEventListener('change',()=>{if(new URLSearchParams(location.hash.slice(1)).get('view')==='areas')showAreas();else go(current)});
-function showAreas(){turnHash=null;location.hash='view=areas&lang='+language.value}
+function showAreas(){slideHash=null;location.hash='view=areas&lang='+language.value}
 document.querySelector('#areas').addEventListener('click',showAreas);
 document.querySelector('#prev').addEventListener('click',()=>step(-1));
 document.querySelector('#next').addEventListener('click',()=>step(1));
