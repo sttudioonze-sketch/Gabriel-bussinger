@@ -21,10 +21,11 @@
 <title>Gabriel Bussinger | Portfólio PRO</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#0a132b;color:#f5f5f5;font:500 13px system-ui}
-#stage{position:relative;isolation:isolate;height:100svh}
+#stage{position:relative;isolation:isolate;height:100svh;overflow:hidden}
 #stage iframe{position:absolute;inset:0;width:100%;height:100%;display:block;border:0}
 #stage iframe[inert]{pointer-events:none}
 #stage .loading-slide{opacity:0}
+#stage .turn-sheet{z-index:1;transform-origin:left center;backface-visibility:hidden}
 nav{position:fixed;bottom:7px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:4px 8px;border:1px solid #d7edff25;background:#0a132be8;backdrop-filter:blur(18px);border-radius:25px}
 button,select{border:0;border-radius:20px;background:transparent;color:#f5f5f5;padding:5px 9px;font:inherit;cursor:pointer}
 option{background:#0a132b}button:hover{background:#ffffff14}button:focus-visible,select:focus-visible{outline:2px solid #14ffe3}button:disabled{opacity:.3;cursor:default}
@@ -49,8 +50,41 @@ const slides=["../gabriel-capa-trilingue/index.html", "../gabriel-02-dados-pesso
 const stage=document.querySelector('#stage'), picker=document.querySelector('#index'), language=document.querySelector('#language');
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let frame=null, pendingFrame=null, current=0;
+let turnHash=null, finishTransition=null;
 
-function showSlide(path,title,lang){
+function animateSlide(previous,incoming,direction){
+ if(reducedMotion.matches){
+  previous?.remove();
+  return;
+ }
+
+ let sheet=incoming;
+ let animation;
+ if(direction){
+  sheet=direction>0 ? previous : incoming;
+  sheet.classList.add('turn-sheet');
+  animation=sheet.animate([
+   {transform:'perspective(1600px) rotateY(0deg)',filter:'brightness(1)'},
+   {transform:'perspective(1600px) rotateY(-34deg)',filter:'brightness(.89)',offset:.37},
+   {transform:'perspective(1600px) rotateY(-72deg)',filter:'brightness(.70)',offset:.76},
+   {transform:'perspective(1600px) rotateY(-90deg)',filter:'brightness(.59)'}
+  ],{duration:680,easing:'cubic-bezier(.34,.12,.25,1)',direction:direction>0?'normal':'reverse',fill:'both'});
+ }else{
+  animation=incoming.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out',fill:'both'});
+ }
+
+ function finish(){
+  if(finishTransition!==finish)return;
+  finishTransition=null;
+  animation.cancel();
+  sheet.classList.remove('turn-sheet');
+  previous?.remove();
+ }
+ finishTransition=finish;
+ animation.finished.then(finish,finish);
+}
+
+function showSlide(path,title,lang,index=null,shouldTurn=false){
  const url=new URL(path+'?embedded=1#'+lang,location.href).href;
  if(pendingFrame?.src===url)return;
  pendingFrame?.remove();
@@ -60,6 +94,7 @@ function showSlide(path,title,lang){
  const incoming=document.createElement('iframe');
  incoming.title=title;
  incoming.className='loading-slide';
+ if(index!==null)incoming.dataset.slide=index;
  incoming.inert=true;
  incoming.setAttribute('aria-hidden','true');
  incoming.addEventListener('load',async()=>{
@@ -75,9 +110,12 @@ function showSlide(path,title,lang){
   }catch{/* The load event still allows navigation if the document is inaccessible. */}
   if(incoming!==pendingFrame)return;
 
+  finishTransition?.();
   const previous=frame;
   const restoreFocus=previous && document.activeElement===previous;
-  const fade=reducedMotion.matches ? null : incoming.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out'});
+  const distance=index-Number(previous?.dataset.slide);
+  const direction=shouldTurn && Math.abs(distance)===1 && new URL(previous.src).hash==='#'+lang ? distance : 0;
+  animateSlide(previous,incoming,direction);
   frame=incoming;
   pendingFrame=null;
   incoming.classList.remove('loading-slide');
@@ -86,8 +124,6 @@ function showSlide(path,title,lang){
   if(previous){
    previous.inert=true;
    previous.setAttribute('aria-hidden','true');
-   if(fade)fade.finished.then(()=>previous.remove(),()=>previous.remove());
-   else previous.remove();
   }
   if(restoreFocus)incoming.focus({preventScroll:true});
  },{once:true});
@@ -97,24 +133,31 @@ function showSlide(path,title,lang){
 }
 
 function render(){
+ const shouldTurn=turnHash===location.hash;
+ turnHash=null;
  const params=new URLSearchParams(location.hash.slice(1));
  current=Math.max(0,Math.min(slides.length-1,Number(params.get('slide')||1)-1));
  const lang=['pt','en','es'].includes(params.get('lang'))?params.get('lang'):'pt';
  picker.value=current;language.value=lang;document.querySelector('#areas').textContent={pt:'Áreas',en:'Sections',es:'Áreas'}[lang];
  if(params.get('view')==='areas'){showSlide('../gabriel-areas/index.html','Áreas do portfólio',lang);document.querySelector('#side-prev').disabled=false;document.querySelector('#side-next').disabled=false;document.querySelector('#count').textContent='';document.querySelector('#prev').disabled=false;document.querySelector('#next').disabled=false;return;}
- showSlide(slides[current],picker.selectedOptions[0].textContent,lang);
+ showSlide(slides[current],picker.selectedOptions[0].textContent,lang,current,shouldTurn);
  document.querySelector('#count').textContent=(current+1)+' / '+slides.length;
  document.querySelector('#prev').disabled=current===0;document.querySelector('#next').disabled=current===slides.length-1;document.querySelector('#side-prev').disabled=current===0;document.querySelector('#side-next').disabled=current===slides.length-1;
 }
-function go(i){location.hash='slide='+(i+1)+'&lang='+language.value}
+function go(i,turn=false){
+ const hash='#slide='+(i+1)+'&lang='+language.value;
+ if(location.hash===hash)return;
+ turnHash=turn ? hash : null;
+ location.hash=hash;
+}
 picker.addEventListener('change',()=>go(Number(picker.value)));
 language.addEventListener('change',()=>{if(new URLSearchParams(location.hash.slice(1)).get('view')==='areas')showAreas();else go(current)});
-function showAreas(){location.hash='view=areas&lang='+language.value}
+function showAreas(){turnHash=null;location.hash='view=areas&lang='+language.value}
 document.querySelector('#areas').addEventListener('click',showAreas);
-document.querySelector('#prev').addEventListener('click',()=>go(current-1));
-document.querySelector('#next').addEventListener('click',()=>go(current+1));
+document.querySelector('#prev').addEventListener('click',()=>step(-1));
+document.querySelector('#next').addEventListener('click',()=>step(1));
 addEventListener('hashchange',render);
-function step(direction){if(new URLSearchParams(location.hash.slice(1)).get('view')==='areas'){go(direction<0?0:1);return;}const next=current+direction;if(next>=0&&next<slides.length)go(next)}
+function step(direction){if(new URLSearchParams(location.hash.slice(1)).get('view')==='areas'){go(direction<0?0:1);return;}const next=current+direction;if(next>=0&&next<slides.length)go(next,true)}
 function handleArrowKey(e){if(e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;const target=e.target;if(target?.closest?.('input,textarea,select,[contenteditable="true"],dialog[open]'))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}}
 addEventListener('keydown',handleArrowKey);
 document.querySelector('#side-prev').addEventListener('click',()=>step(-1));document.querySelector('#side-next').addEventListener('click',()=>step(1));
