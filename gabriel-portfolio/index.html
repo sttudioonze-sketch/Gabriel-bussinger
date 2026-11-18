@@ -21,7 +21,10 @@
 <title>Gabriel Bussinger | Portfólio PRO</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#0a132b;color:#f5f5f5;font:500 13px system-ui}
-iframe{width:100%;height:100svh;display:block;border:0}
+#stage{position:relative;isolation:isolate;height:100svh}
+#stage iframe{position:absolute;inset:0;width:100%;height:100%;display:block;border:0}
+#stage iframe[inert]{pointer-events:none}
+#stage .loading-slide{opacity:0}
 nav{position:fixed;bottom:7px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:4px 8px;border:1px solid #d7edff25;background:#0a132be8;backdrop-filter:blur(18px);border-radius:25px}
 button,select{border:0;border-radius:20px;background:transparent;color:#f5f5f5;padding:5px 9px;font:inherit;cursor:pointer}
 option{background:#0a132b}button:hover{background:#ffffff14}button:focus-visible,select:focus-visible{outline:2px solid #14ffe3}button:disabled{opacity:.3;cursor:default}
@@ -32,7 +35,7 @@ option{background:#0a132b}button:hover{background:#ffffff14}button:focus-visible
 #side-prev{left:12px}#side-next{right:12px}
 @media(max-width:600px){.side-arrow{width:27px;height:43px;border-radius:10px}#side-prev{left:3px}#side-next{right:3px}.side-arrow svg{width:17px;height:23px}}
 </style>
-<iframe id="slide" title="Slide do portfólio"></iframe>
+<main id="stage"></main>
 <button class="side-arrow" id="side-prev" aria-label="Slide anterior"><svg viewBox="0 0 24 32" aria-hidden="true"><path d="m16 5-10 11 10 11"/></svg></button><button class="side-arrow" id="side-next" aria-label="Próximo slide"><svg viewBox="0 0 24 32" aria-hidden="true"><path d="m8 5 10 11L8 27"/></svg></button><nav aria-label="Navegação do portfólio">
 <button id="areas" aria-label="Escolher área">Áreas</button><button id="prev" aria-label="Slide anterior">‹</button>
 <select id="index" aria-label="Escolher slide">
@@ -43,16 +46,63 @@ option{background:#0a132b}button:hover{background:#ffffff14}button:focus-visible
 </nav>
 <script>
 const slides=["../gabriel-capa-trilingue/index.html", "../gabriel-02-dados-pessoais/index.html", "../gabriel-03-perfil-profissional/perfil.html", "../gabriel-03-perfil-profissional/objetivos-teste-claro.html", "../gabriel-05-formacao/index.html", "../gabriel-06-formacao-profissional/index.html", "../gabriel-07-instrutor/index.html", "../gabriel-08-instituicoes/index.html", "../gabriel-09-aulas/index.html", "../gabriel-10-executivos/index.html", "../gabriel-11-gestao-metodologica/index.html", "../gabriel-12-desenvolvimento-profissional/index.html", "../gabriel-13-experiencia/index.html", "../gabriel-14-carreira/index.html", "../gabriel-15-carreira/index.html", "../gabriel-16-titulos/index.html", "../gabriel-resumo-conquistas/index.html", "../gabriel-17-internacionais/index.html", "../gabriel-18-conquistas/index.html", "../gabriel-19-conquistas/index.html", "../gabriel-20a-estaduais-rj/index.html", "../gabriel-20-conquistas/index.html", "../gabriel-21-experiencias-temporarias/index.html", "../gabriel-22-visitas/index.html", "../gabriel-23-visitas/index.html", "../gabriel-24-visitas/index.html", "../gabriel-25-visitas/index.html", "../gabriel-26-visitas/index.html", "../gabriel-27-jogadores/index.html", "../gabriel-28-jogadores/index.html", "../gabriel-29-jogadores/index.html", "../gabriel-30-jogadores/index.html", "../gabriel-31-imprensa/index.html", "../gabriel-32a-palestras/index.html", "../gabriel-32b-podcasts/index.html", "../gabriel-32-midia/index.html", "../gabriel-33-canais/index.html"];
-const frame=document.querySelector('#slide'), picker=document.querySelector('#index'), language=document.querySelector('#language');
-let current=0;
+const stage=document.querySelector('#stage'), picker=document.querySelector('#index'), language=document.querySelector('#language');
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let frame=null, pendingFrame=null, current=0;
+
+function showSlide(path,title,lang){
+ const url=new URL(path+'?embedded=1#'+lang,location.href).href;
+ if(pendingFrame?.src===url)return;
+ pendingFrame?.remove();
+ pendingFrame=null;
+ if(frame?.src===url)return;
+
+ const incoming=document.createElement('iframe');
+ incoming.title=title;
+ incoming.className='loading-slide';
+ incoming.inert=true;
+ incoming.setAttribute('aria-hidden','true');
+ incoming.addEventListener('load',async()=>{
+  if(incoming!==pendingFrame)return;
+  try{
+   const doc=incoming.contentDocument;
+   if(doc){
+    const images=Array.from(doc.images).filter(img=>img.loading!=='lazy' && img.currentSrc);
+    await Promise.allSettled(images.map(img=>img.decode()));
+    await doc.fonts.ready;
+   }
+   incoming.contentWindow.addEventListener('keydown',handleArrowKey);
+  }catch{/* The load event still allows navigation if the document is inaccessible. */}
+  if(incoming!==pendingFrame)return;
+
+  const previous=frame;
+  const restoreFocus=previous && document.activeElement===previous;
+  const fade=reducedMotion.matches ? null : incoming.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out'});
+  frame=incoming;
+  pendingFrame=null;
+  incoming.classList.remove('loading-slide');
+  incoming.inert=false;
+  incoming.removeAttribute('aria-hidden');
+  if(previous){
+   previous.inert=true;
+   previous.setAttribute('aria-hidden','true');
+   if(fade)fade.finished.then(()=>previous.remove(),()=>previous.remove());
+   else previous.remove();
+  }
+  if(restoreFocus)incoming.focus({preventScroll:true});
+ },{once:true});
+ incoming.src=url;
+ pendingFrame=incoming;
+ stage.append(incoming);
+}
+
 function render(){
  const params=new URLSearchParams(location.hash.slice(1));
  current=Math.max(0,Math.min(slides.length-1,Number(params.get('slide')||1)-1));
  const lang=['pt','en','es'].includes(params.get('lang'))?params.get('lang'):'pt';
  picker.value=current;language.value=lang;document.querySelector('#areas').textContent={pt:'Áreas',en:'Sections',es:'Áreas'}[lang];
- if(params.get('view')==='areas'){frame.src='../gabriel-areas/index.html?embedded=1#'+lang;frame.title='Áreas do portfólio';document.querySelector('#side-prev').disabled=false;document.querySelector('#side-next').disabled=false;document.querySelector('#count').textContent='';document.querySelector('#prev').disabled=false;document.querySelector('#next').disabled=false;return;}
- frame.src=slides[current]+'?embedded=1#'+lang;
- frame.title=picker.selectedOptions[0].textContent;
+ if(params.get('view')==='areas'){showSlide('../gabriel-areas/index.html','Áreas do portfólio',lang);document.querySelector('#side-prev').disabled=false;document.querySelector('#side-next').disabled=false;document.querySelector('#count').textContent='';document.querySelector('#prev').disabled=false;document.querySelector('#next').disabled=false;return;}
+ showSlide(slides[current],picker.selectedOptions[0].textContent,lang);
  document.querySelector('#count').textContent=(current+1)+' / '+slides.length;
  document.querySelector('#prev').disabled=current===0;document.querySelector('#next').disabled=current===slides.length-1;document.querySelector('#side-prev').disabled=current===0;document.querySelector('#side-next').disabled=current===slides.length-1;
 }
@@ -67,10 +117,9 @@ addEventListener('hashchange',render);
 function step(direction){if(new URLSearchParams(location.hash.slice(1)).get('view')==='areas'){go(direction<0?0:1);return;}const next=current+direction;if(next>=0&&next<slides.length)go(next)}
 function handleArrowKey(e){if(e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;const target=e.target;if(target?.closest?.('input,textarea,select,[contenteditable="true"],dialog[open]'))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}}
 addEventListener('keydown',handleArrowKey);
-frame.addEventListener('load',()=>{try{frame.contentWindow.addEventListener('keydown',handleArrowKey)}catch{}});
 document.querySelector('#side-prev').addEventListener('click',()=>step(-1));document.querySelector('#side-next').addEventListener('click',()=>step(1));
 addEventListener('message',event=>{
- if(event.source!==frame.contentWindow)return;
+ if(event.source!==frame?.contentWindow)return;
  if(event.data?.type==='portfolio-menu'){showAreas();return;}
  if(event.data?.type==='portfolio-go'){const n=Number(event.data.slide);if(Number.isInteger(n)&&n>=1&&n<=slides.length)go(n-1);return;}
  if(event.data?.type!=='portfolio-language')return;
